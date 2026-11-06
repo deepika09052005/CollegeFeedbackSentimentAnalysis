@@ -5,28 +5,28 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                echo 'Fetching College Feedback project from GitHub'
+                echo 'Fetching project from GitHub'
                 checkout scm
             }
         }
 
         stage('Install Dependencies') {
             steps {
-                bat 'python --version'
-                bat 'python -m pip install -r requirements.txt'
+                bat '"C:\\CollegeFeedbackSentimentAnalysis\\venv\\Scripts\\python.exe" --version'
+                bat '"C:\\CollegeFeedbackSentimentAnalysis\\venv\\Scripts\\python.exe" -m pip install -r requirements.txt'
             }
         }
 
         stage('Validate Python Files') {
             steps {
-                bat 'python -m compileall -q app.py pages train_model.py generate_dataset.py'
+                bat '"C:\\CollegeFeedbackSentimentAnalysis\\venv\\Scripts\\python.exe" -m compileall -q app.py pages train_model.py generate_dataset.py'
                 echo 'Python files validated successfully'
             }
         }
 
         stage('Verify ML Model') {
             steps {
-                bat 'python -c "import joblib; joblib.load(\'model/sentiment_model.pkl\'); joblib.load(\'model/vectorizer.pkl\'); print(\'ML models loaded successfully\')"'
+                bat '"C:\\CollegeFeedbackSentimentAnalysis\\venv\\Scripts\\python.exe" -c "import joblib; joblib.load(\'model/sentiment_model.pkl\'); joblib.load(\'model/vectorizer.pkl\'); print(\'ML models loaded successfully\')"'
             }
         }
     }
